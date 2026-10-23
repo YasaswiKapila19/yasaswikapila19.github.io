@@ -1,4 +1,4 @@
-baseURL = "https://example.com/"
+baseURL = "https://yasaswikapila19.github.io/"
 locale = "en-IN"
 title = "Yasaswi Kapila"
 relativeURLs = true
@@ -7,9 +7,9 @@ enableRobotsTXT = true
 disableKinds = ["taxonomy", "term"]
 
 [params]
-  description = "Yasaswi Kapila trains language models at Neuralix.AI. Notes on LLMs, and on driving, dogs, football and light novels."
+  description = "Yasaswi Kapila works on large language models at Neuralix.AI. Notes on training, post-training and inference."
   email = "yasaswi.kapila@gmail.com"
-  # github = "https://github.com/your-username"
+  github = "https://github.com/YasaswiKapila19"
   # linkedin = "https://www.linkedin.com/in/your-handle"
 
 [markup.goldmark.renderer]
