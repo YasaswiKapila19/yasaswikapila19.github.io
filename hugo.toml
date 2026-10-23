@@ -1,0 +1,26 @@
+baseURL = "https://example.com/"
+locale = "en-IN"
+title = "Yasaswi Kapila"
+relativeURLs = true
+uglyURLs = true
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  description = "Yasaswi Kapila trains language models at Neuralix.AI. Notes on LLMs, and on driving, dogs, football and light novels."
+  email = "yasaswi.kapila@gmail.com"
+  # github = "https://github.com/your-username"
+  # linkedin = "https://www.linkedin.com/in/your-handle"
+
+[markup.goldmark.renderer]
+  unsafe = false
+
+[menus]
+  [[menus.main]]
+    name = "Writing"
+    pageRef = "/posts"
+    weight = 1
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 2

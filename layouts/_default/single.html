@@ -1,0 +1,15 @@
+{{ define "main" }}
+<article class="post">
+  {{ if eq .Section "posts" }}<p class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time> · {{ .ReadingTime }} min read</p>{{ end }}
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p class="dek">{{ . }}</p>{{ end }}
+  {{ partial "lane.html" . }}
+  <div class="prose">{{ .Content }}</div>
+  {{ if eq .Section "posts" }}
+  <nav class="pager" aria-label="More writing">
+    {{ with .NextInSection }}<a href="{{ .RelPermalink }}"><span>Newer</span>{{ .Title }}</a>{{ end }}
+    {{ with .PrevInSection }}<a class="r" href="{{ .RelPermalink }}"><span>Older</span>{{ .Title }}</a>{{ end }}
+  </nav>
+  {{ end }}
+</article>
+{{ end }}

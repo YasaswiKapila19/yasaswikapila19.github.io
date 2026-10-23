@@ -1,0 +1,21 @@
+{{ define "main" }}
+<section class="hello">
+  <h1>Yasaswi Kapila</h1>
+  <div class="intro">{{ .Content }}</div>
+</section>
+{{ partial "lane.html" . }}
+<section>
+  <h2 class="label">Recent writing</h2>
+  <ol class="posts">
+    {{ range first 6 (where site.RegularPages "Section" "posts") }}
+    <li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2006" }}</time><div><a href="{{ .RelPermalink }}">{{ .Title }}</a><p>{{ .Description }}</p></div></li>
+    {{ end }}
+  </ol>
+</section>
+<section>
+  <h2 class="label">Off the clock</h2>
+  <dl class="glovebox">
+    {{ range .Params.offclock }}<dt>{{ .k }}</dt><dd>{{ .v | markdownify }}</dd>{{ end }}
+  </dl>
+</section>
+{{ end }}

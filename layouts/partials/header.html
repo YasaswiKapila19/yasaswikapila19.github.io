@@ -1,0 +1,9 @@
+<header class="top wrap">
+  <a class="mark" href="{{ "/" | relURL }}">yasaswi<span>.</span>kapila</a>
+  <nav aria-label="Main">
+    {{ $cur := . }}
+    {{ range site.Menus.main }}
+      <a href="{{ .URL }}"{{ if or ($cur.IsMenuCurrent "main" .) ($cur.HasMenuCurrent "main" .) (and .Page (eq $cur.Section .Page.Section) (ne $cur.Section "")) }} aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{ end }}
+  </nav>
+</header>

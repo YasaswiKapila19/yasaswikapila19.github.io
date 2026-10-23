@@ -1,0 +1,12 @@
+<footer class="dusk">
+  <svg class="sun" viewBox="0 0 400 120" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+    <circle cx="300" cy="120" r="64"/>
+    <g class="dashes"><rect x="20" y="108" width="24" height="6" rx="3"/><rect x="64" y="108" width="24" height="6" rx="3"/><rect x="108" y="108" width="24" height="6" rx="3"/><rect x="152" y="108" width="24" height="6" rx="3"/></g>
+  </svg>
+  <div class="wrap foot">
+    <p>Write to me at <span class="mail">{{ site.Params.email }}</span></p>
+    <p class="small">
+      {{ with site.Params.github }}<a href="{{ . }}">GitHub</a> · {{ end }}{{ with site.Params.linkedin }}<a href="{{ . }}">LinkedIn</a> · {{ end }}<a href="{{ "index.xml" | relURL }}">RSS</a> · © {{ now.Year }} Yasaswi Kapila
+    </p>
+  </div>
+</footer>

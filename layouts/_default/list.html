@@ -1,0 +1,12 @@
+{{ define "main" }}
+<section class="hello">
+  <h1>{{ .Title }}</h1>
+  {{ with .Content }}<div class="intro">{{ . }}</div>{{ end }}
+</section>
+{{ partial "lane.html" . }}
+<ol class="posts">
+  {{ range .Pages }}
+  <li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2006" }}</time><div><a href="{{ .RelPermalink }}">{{ .Title }}</a><p>{{ .Description }}</p></div></li>
+  {{ end }}
+</ol>
+{{ end }}
