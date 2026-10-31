@@ -1,25 +1,13 @@
 ---
 title: "The model that lost its place"
 date: 2026-10-04
-description: "Our speed-up path quietly dropped the positional encoding. The model didn't crash. It just forgot word order."
+description: "Our CUDA-graph fast path silently dropped the positional encoding, and nothing threw an error."
 ---
 
-Language models don't naturally know the order of the words they read. Positional encoding is what tells them. We use a variant called YaRN, which stretches that sense of position so a model trained on shorter text can read longer documents.
+Language models don't naturally know the order of the words they read. Positional encoding is what gives them this information. We use a variant called YaRN, which stretches the model's sense of position so that a model trained on shorter text can handle longer documents. We added YaRN to our model and checked that it worked.
 
-We added YaRN to our model, checked that it worked, and moved on.
+To make generation faster, a GPU can record a sequence of operations once and then replay that recording again and again, which skips a lot of overhead. These recordings are called CUDA graphs, and they are one of the easiest ways to speed up inference.
 
-## The fast path
+A recording only contains what was passed into it at the time. Our YaRN settings were connected to the normal code path but never reached the recorded one, so whenever the model ran through the fast path, it fell back to having no positional encoding at all. This didn't cause any errors. The outputs were only slightly worse, which made it easy to blame on something else.
 
-To make generation faster, a GPU can record a sequence of operations once and then replay that recording over and over, skipping a lot of overhead. These recordings are called CUDA graphs, and they're one of the easiest speed-ups available.
-
-The catch is that the recording only contains what was actually passed into it. Our YaRN settings were wired into the normal code path but never reached the recorded one. So whenever the model ran through the fast path, it silently fell back to no positional encoding at all.
-
-Nothing crashed. Outputs just got a little worse in ways that were easy to blame on anything else.
-
-## What gave it away
-
-The fix itself was small. Finding it took longer. What finally worked was running the same input through the normal path and the recorded path, then comparing the outputs side by side. They should have matched. They didn't.
-
-> If you have a fast path and a slow path, they need the same tests. The fast path is the one users actually hit.
-
-I now keep a check that compares both paths on a few fixed inputs, and it runs whenever either one changes.
+The fix was small, but finding the problem took much longer. I found it by running the same input through both the normal path and the recorded path and comparing the outputs, which should have been identical but weren't. I now keep a check that compares both paths on a few fixed inputs, and it runs whenever either one changes.

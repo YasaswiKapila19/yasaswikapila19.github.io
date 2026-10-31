@@ -1,27 +1,19 @@
 ---
 title: "243 missing tensors"
 date: 2026-09-14
-description: "My fine-tuned model was babbling. The training was fine. Loading it was not."
+description: "My fine-tuned model kept repeating the same few words. I spent a while on the training before I found the bug in how the checkpoint was loaded."
 ---
 
-After fine-tuning, my model produced garbage: the same few words, over and over. I assumed something was wrong with the training, so I spent a while adjusting it.
+After fine-tuning, my model was producing garbage, repeating the same few words over and over. I assumed something had gone wrong in training and spent a good amount of time adjusting the training setup.
 
-Then I tried the most boring test I know. I trained the model on just five examples until it had memorised them perfectly. If a model can't repeat five answers it has memorised, the problem isn't learning.
+To check whether the model could learn at all, I trained it on just five examples until it memorised them. It memorised all five, but generation still produced the same repeated words. So the training was working, and the problem was somewhere else.
 
-It had memorised them. It still babbled.
+The problem was in loading the checkpoint. The loading script renamed every weight slightly before loading it, and after the rename none of the names matched what the model expected. The loader was set to be lenient about mismatches, so it skipped all 243 weights without raising an error, and the model ran on its random starting values. There was also a second, smaller bug in how the generation code passed its inputs.
 
-## The real problem
+Since then, I do three things:
 
-The weights were fine. They were never making it into the model.
+- When a loader is set to be lenient, I check exactly what it skipped.
+- I keep a small memorisation test and run it before any long job.
+- I pass arguments by name whenever code moves from one library to another.
 
-The script that loaded the checkpoint renamed every weight slightly before loading it, and after the rename, none of the names matched what the model expected. The loader was set to be forgiving about mismatches, so it didn't complain. It skipped all 243 weights and ran the model on random numbers.
-
-There was a second, smaller bug in how the generation code passed its inputs, which didn't help.
-
-## What I do now
-
-- When a loader is set to be forgiving, I check exactly what it skipped.
-- I keep a tiny memorisation test and run it before any long job.
-- I name arguments explicitly whenever code crosses from one library into another.
-
-The training run had been fine all along. I'd been debugging the wrong half of the problem.
+This taught me to check the boring parts first, like whether the weights actually loaded, before changing anything in training.

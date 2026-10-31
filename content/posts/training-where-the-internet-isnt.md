@@ -4,22 +4,12 @@ date: 2026-07-20
 description: "Lessons from building a training setup for machines that will never see the internet."
 ---
 
-Some of my work runs on machines with no internet connection at all. You can't install a missing package or download a dataset you forgot. Every gap means another trip with a drive.
+Some of my work runs on machines that have no internet connection at all. On these machines, you can't install a missing package or download a dataset you forgot, and every gap means another trip with a drive. Over time, this changed the way I set things up.
 
-That changes how you build things.
+Anything that needs the internet becomes a script that I run once, on a different machine. I download the data, save it, and carry the whole folder in. I also pin every library to an exact version, because the version I test with has to be the same one that arrives on the machine.
 
-## Bring everything at once
+The fastest attention code only works with exact versions of its dependencies. So our model first tries the fastest option, then a slower one, and finally a plain version that always works. When I can't fix the environment myself, a slower run is still better than no run.
 
-Anything that needs the internet becomes a script you run once, somewhere else. Download the data, save it, carry the whole folder in. Pin every library to an exact version, because the one you test with has to be the one that arrives.
+I run short smoke tests and follow simple written runbooks, so code never runs for the first time on the real hardware. Without the internet I can't search for an error message, so I try to run into most of the errors before I get there.
 
-## Fall back instead of failing
-
-The fastest attention code needs very specific versions of very specific software. So our model tries the fastest option first, then a slower one, then a plain one that always works. A slower run beats no run when you can't fix the environment yourself.
-
-## Rehearse before the real thing
-
-Short smoke tests and simple written runbooks mean the first time code runs on the real hardware is never its first time running anywhere. When you can't search for an error message, you want very few error messages.
-
-## Watch a few numbers
-
-I track the same handful of numbers on every run: how fast it's going, how much memory it's using, and whether the loss is falling the way it should. If those look right, most other things usually are.
+On every run, I track the same few numbers: how fast it is going, how much memory it is using, and whether the loss is falling the way it should. If these look right, most other things usually are too.

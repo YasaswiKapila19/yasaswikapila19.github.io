@@ -13,4 +13,4 @@ offclock:
 
 I work on large language models at [Neuralix.AI](https://neuralix.ai): model architecture, pretraining, and post-training with fine-tuning and reinforcement learning.
 
-Recently that has included an approximately 10B mixture-of-experts model, a pretraining stack built from scratch, and, in my own time, multi-task reinforcement learning. I write about what I learn here.
+Recently that has included a roughly 10B-parameter mixture-of-experts model, a pretraining stack built from scratch, and, in my own time, multi-task reinforcement learning. I write about what I learn here.
