@@ -4,6 +4,16 @@
   <div class="intro">{{ .Content }}</div>
 </section>
 {{ partial "lane.html" . }}
+{{ with site.GetPage "/projects" }}{{ $page := .RelPermalink }}
+<section>
+  <h2 class="label">Projects</h2>
+  <ol class="posts">
+    {{ range .Params.items }}
+    <li><time>{{ .date }}</time><div><a href="{{ $page }}">{{ .title }}</a><p>{{ .summary }}{{ range .links }} · <a href="{{ .url }}">{{ .name }}</a>{{ end }}</p></div></li>
+    {{ end }}
+  </ol>
+</section>
+{{ end }}
 <section>
   <h2 class="label">Recent writing</h2>
   <ol class="posts">
