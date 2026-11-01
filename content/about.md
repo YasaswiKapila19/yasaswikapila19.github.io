@@ -13,9 +13,11 @@ In my own time, I post-trained Qwen2.5-1.5B with reinforcement learning and mult
 
 **Neuralix.AI, Data Scientist** (January 2026 to now)
 
-- **Pretraining.** I worked on Chimera, our own sparse mixture-of-experts model with about 10B parameters, of which about 1.9B are active per token. I helped design the architecture and trained it with Megatron-LM on five H200 nodes at about 43% MFU. I also built the conversion between Megatron and Hugging Face checkpoints and made the model run in vLLM.
-- **Post-training.** I set up DAPO and multi-teacher on-policy distillation on our 10B model and improved it on 16 tasks, from grounding and instruction following to Python and long-context recall. I also trained a reasoning model with SFT on reasoning traces and a short mid-training run. It matched the instruct model after SFT and beat it after RL.
-- **An air-gapped LLM stack.** For an Indian Army engagement, I built a pretraining stack from scratch in PyTorch and DeepSpeed for 1B to 3B models, with the evaluation, fine-tuning and runbooks needed to work without internet access. I also built a hybrid-search RAG system over their documents, because a model that size can't reliably recall facts from a small private dataset.
+I build custom LLMs for the Indian Army, trained and run on air-gapped infrastructure.
+
+- **Pretraining.** We pretrained two models from scratch: a 10B-parameter sparse mixture-of-experts model, with about 1.9B parameters active per token, and a 3B dense model. I worked on the architecture and trained the 10B model with Megatron-LM on five H200 nodes at about 43% MFU. I also built a pretraining stack from scratch in PyTorch and DeepSpeed, the conversion between Megatron and Hugging Face checkpoints, and the setup to serve the models in vLLM.
+- **Post-training.** I set up DAPO and multi-teacher on-policy distillation on the 10B model and improved it on 16 tasks, from grounding and instruction following to Python and long-context recall. I also trained a reasoning model with SFT on reasoning traces and a short mid-training run. It matched the instruct model after SFT and beat it after RL.
+- **Retrieval.** I built a hybrid-search RAG system over their documents, because a model can't reliably recall facts from a private dataset that small.
 
 **Tata Consultancy Services, Systems Engineer** (October 2023 to July 2025)
 
